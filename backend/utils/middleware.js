@@ -38,8 +38,8 @@ const tokenExtractor = (request, response, next) => {
   }
 
   // Extract the token from the authorization header
-  const token = authorization.replace('bearer ', '');
-  // same as return authorization.substring(7);
+  // const token = authorization.replace('bearer ', ''); same as below method
+  const token = authorization.substring(7);
   // same as const [_, token] = authorization.split(' ');
 
   // Add the token to the request object

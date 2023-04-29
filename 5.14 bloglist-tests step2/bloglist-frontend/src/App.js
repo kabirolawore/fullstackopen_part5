@@ -126,6 +126,10 @@ const App = () => {
 
   // console.log(blogs);
 
+  const toggleFn = (fn) => {
+    fn();
+  };
+
   return (
     <div>
       {!user && LoginForm()}
@@ -149,6 +153,7 @@ const App = () => {
                 user={name}
                 blogs={blogs}
                 setBlogs={setBlogs}
+                toggleFn={toggleFn}
               />
             ))}
           </div>

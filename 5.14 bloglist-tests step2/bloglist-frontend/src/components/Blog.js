@@ -1,7 +1,15 @@
 import { useState } from 'react';
 
 //
-const Blog = ({ blog, user, updateLikes, deleteBlog, setBlogs, blogs }) => {
+const Blog = ({
+  blog,
+  user,
+  updateLikes,
+  deleteBlog,
+  setBlogs,
+  blogs,
+  toggleFn,
+}) => {
   //
   const [isHidden, setIsHidden] = useState(true);
   const [likes, setLikes] = useState(blog.likes || 0);
@@ -51,8 +59,10 @@ const Blog = ({ blog, user, updateLikes, deleteBlog, setBlogs, blogs }) => {
   return (
     <div style={blogStyle} className='blogHeading'>
       <div>
-        {blog.title} {blog.author} {blog.url}
-        <button onClick={toggleDetails}>{isHidden ? 'view' : 'hide'}</button>
+        {blog.title} {blog.author}{' '}
+        <button onClick={() => toggleFn(toggleDetails)}>
+          {isHidden ? 'view' : 'hide'}
+        </button>
       </div>
       {!isHidden && (
         <div>

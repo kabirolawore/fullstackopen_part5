@@ -24,11 +24,15 @@ describe('Blog App', () => {
   });
 
   describe('Login', function () {
+    //
     it('succeeds with correct credentials', function () {
-      cy.get('#username').type('super');
-      cy.get('#password').type('super');
+      cy.get('#username').type('admin');
+      cy.get('#password').type('admin');
       cy.get('#login-button').click();
+
+      cy.contains('logout');
     });
+
     it('fails with wrong credentials', function () {
       cy.get('#username').type('admin');
       cy.get('#password').type('wrong');

@@ -18,12 +18,15 @@ const App = () => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
   }, []);
 
+  let loggeduser;
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser');
-    // console.log(loggedUserJSON);
+
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
+      // loggeduser = user;
       setUser(user);
+
       blogService.setToken(user.Token);
     }
   }, []);
@@ -43,6 +46,7 @@ const App = () => {
       setUser(user);
       setUsername('');
       setPassword('');
+      // console.log();
     } catch (exception) {
       setErrorMessage('Wrong username or password');
       setTimeout(() => {
@@ -64,11 +68,13 @@ const App = () => {
 
     blogService.create(blogObject).then((returnedBlog) => {
       setBlogs(blogs.concat(returnedBlog));
+      setUser(returnedBlog.user);
 
       if (returnedBlog.title) {
         setSuccessMessage(
           `a new blog ${returnedBlog.title} by ${returnedBlog.author} added`
         );
+        // console.log(returnedBlog.user);
         setTimeout(() => {
           setSuccessMessage(null);
         }, 5000);
@@ -92,6 +98,7 @@ const App = () => {
         <div>
           username{' '}
           <input
+            id='username'
             type='text'
             value={username}
             name='Username'
@@ -99,18 +106,37 @@ const App = () => {
           />
         </div>
         <div>
-          username{' '}
+          password{' '}
           <input
+            id='password'
             type='password'
             value={password}
             name='Password'
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>
-        <button type='submit'>login</button>
+        <button id='login-button' type='submit'>
+          login
+        </button>
       </form>
     </div>
   );
+
+  loggeduser = window.localStorage.getItem('loggedBlogAppUser');
+  const name = JSON.parse(loggeduser)?.name;
+  // console.log(name);
+
+  blogs.sort((a, b) => a.likes - b.likes);
+
+  // console.log(blogs);
+
+  const toggleFn = (fn) => {
+    fn();
+  };
+
+  const increaseLikes = (fn) => {
+    fn();
+  };
 
   return (
     <div>
@@ -126,7 +152,19 @@ const App = () => {
           {addBlogForm()}
           <br />
           <div>
-            {blogs && blogs.map((blog) => <Blog key={blog.id} blog={blog} />)}
+            {blogs.map((blog) => (
+              <Blog
+                updateLikes={blogService.update}
+                deleteBlog={blogService.del}
+                key={blog.id}
+                blog={blog}
+                user={name}
+                blogs={blogs}
+                setBlogs={setBlogs}
+                toggleFn={toggleFn}
+                onIncreaseLikes={increaseLikes}
+              />
+            ))}
           </div>
         </div>
       )}

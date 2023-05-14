@@ -85,10 +85,13 @@ const App = () => {
           <div>
             {user.name} logged in <button onClick={handleLogout}>logout</button>
           </div>
-          <br />
-          {blogs.map((blog) => (
-            <Blog key={blog.id} blog={blog} />
-          ))}
+
+          <h2>create new</h2>
+          <div>
+            {blogs.map((blog) => (
+              <Blog key={blog.id} blog={blog} />
+            ))}
+          </div>
         </div>
       )}
     </div>

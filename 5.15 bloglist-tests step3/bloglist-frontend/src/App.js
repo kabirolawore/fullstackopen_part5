@@ -126,7 +126,7 @@ const App = () => {
 
   // console.log(blogs);
 
-  const toggleFn = (fn) => {
+  const toggleView = (fn) => {
     fn();
   };
 
@@ -157,7 +157,7 @@ const App = () => {
                 user={name}
                 blogs={blogs}
                 setBlogs={setBlogs}
-                toggleFn={toggleFn}
+                toggleView={toggleView}
                 onIncreaseLikes={increaseLikes}
               />
             ))}

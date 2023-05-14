@@ -59,7 +59,9 @@ const Blog = ({ blog }) => {
       {!isHidden && (
         <div>
           <div>{blog.url}</div>
-          <div>{blog.likes}</div>
+          <div>
+            {blog.likes} <button>likes</button>
+          </div>
           <div>{blog.user.name}</div>
         </div>
       )}
